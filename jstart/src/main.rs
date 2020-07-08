@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 fn main() -> std::io::Result<()> {
     let launch_data = std::fs::read("launcher")?;
     let app_home_path = std::env::current_dir()?;
@@ -5,11 +7,11 @@ fn main() -> std::io::Result<()> {
     let commands: Vec<_> = launch_str.split(" ").collect();
     let program = {
         if cfg!(windows) {
-            "jdk/bin/java.exe"
+            "jdk/bin/javaw.exe"
         } else if cfg!(macos) {
-            "jdk/Contents/Home/bin/java"
+            "jdk/Contents/Home/bin/javaw"
         } else if cfg!(unix) {
-            "jdk/bin/java"
+            "jdk/bin/javaw"
         } else {
             panic!("only windows, mac and unix is supported")
         }
