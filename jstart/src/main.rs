@@ -1,6 +1,7 @@
 fn main() -> std::io::Result<()> {
     let launch_data = std::fs::read("launcher")?;
-    let launch_str = String::from_utf8_lossy(&launch_data);
+    let app_home_path = std::env::current_dir()?;
+    let launch_str = String::from_utf8_lossy(&launch_data).replace("%APP_HOME%", &format!("{}", app_home_path.parent().unwrap().display()));
     let commands: Vec<_> = launch_str.split(" ").collect();
     let program = {
         if cfg!(windows) {
