@@ -18,5 +18,5 @@ fn main() -> std::io::Result<()> {
         }
     };
     let res = std::process::Command::new(program).args(&commands).spawn()?.wait()?;
-    std::process::exit(res.code().unwrap_or(0));
+    std::process::exit(res.code().unwrap_or(-1));
 }
